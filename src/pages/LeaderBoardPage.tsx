@@ -3,7 +3,7 @@ import Navbar from "../components/NavBar";
 
 export const LeaderBoardPage = () => {
   return (
-    <div>
+    <div className="bg-black w-full h-screen">
       <Navbar />
       <LeaderHeros />
     </div>
