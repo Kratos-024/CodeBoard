@@ -3,6 +3,7 @@ import "./App.css";
 import { HomePage } from "./pages/HomePage";
 import { LeaderBoardPage } from "./pages/LeaderBoardPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ProfilePage } from "./pages/ProfilePage";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -19,6 +20,7 @@ function App() {
             element={<HomePage darkMode={darkMode} setDarkMode={setDarkMode} />}
           ></Route>
           <Route path="/leaderBoard" element={<LeaderBoardPage />}></Route>
+          <Route path="/Profile" element={<ProfilePage />}></Route>
         </Routes>
       </BrowserRouter>
     </>
