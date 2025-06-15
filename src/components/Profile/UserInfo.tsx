@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Award, Calendar, Coffee, Star } from "lucide-react";
-import ActivityInsights, { UserOverview } from "./ConsistencyGit";
+import ActivityInsights, {
+  UserCommitChart,
+  UserProgrammingLnaguageUsed,
+} from "./ConsistencyGit";
 import "../../index.css";
 
 export const UserInfo = () => {
@@ -147,8 +150,24 @@ export const UserInfo = () => {
               </div>
             )}
             <div className="xl:w-[780px] flex  mx-auto">
-              <UserOverview active={active} />
-              {active === 1 && <ActivityInsights />}
+              {active === 0 && (
+                <div
+                  className="flex gap-2 flex-col 
+       flex-1 items-center"
+                >
+                  <UserCommitChart />
+                  <UserProgrammingLnaguageUsed />
+                </div>
+              )}
+              {active === 1 && (
+                <div
+                  className="flex gap-2  
+      items-center"
+                >
+                  <UserCommitChart />
+                  <ActivityInsights />
+                </div>
+              )}
             </div>
             {active === 0 && (
               <div className="flex flex-col 2xl:w-80 gap-6 items-center 2xl:mt-6 ">

@@ -50,7 +50,11 @@ export function UserGitCalendar() {
 const ActivityInsights = () => {
   return (
     // bg-gradient-to-br from-[#1E2530] to-blue-900/40
-    <div className=" dark:bg-primary-foreground/90 p-4 rounded-xl backdrop-blur-sm  border border-purple-500/20 max-w-sm">
+    <div
+      className=" dark:bg-primary-foreground/90    flex-1
+     p-4 rounded-xl backdrop-blur-sm xl:w-[380px]
+      border border-purple-500/20 "
+    >
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-2">
           <Zap className="w-5 h-5 text-orange-400" />
@@ -159,20 +163,6 @@ export const UserProgrammingLnaguageUsed = () => {
             <LanguagePieChart />
           </div>
         </div>
-      </div>
-    </section>
-  );
-};
-
-export const UserOverview = ({ active }: { active: number }) => {
-  return (
-    <section>
-      <div
-        className="flex gap-2 flex-col 
-       flex-1 items-center"
-      >
-        <UserCommitChart />
-        {active === 0 && <UserProgrammingLnaguageUsed />}
       </div>
     </section>
   );
