@@ -1,17 +1,49 @@
 import { useState } from "react";
 import { Award, Calendar, Coffee, Star } from "lucide-react";
-import { UserOverview } from "./ConsistencyGit";
+import ActivityInsights, { UserOverview } from "./ConsistencyGit";
+import "../../index.css";
 
 export const UserInfo = () => {
   const [active, setActive] = useState(0);
   const activeHandler = (activeNumber: number) => {
     setActive(activeNumber);
   };
+  const grindStats = [
+    {
+      header: "LATE GRINDS",
+      work: "0 Nights",
+      subHeader: "Balanced focus",
+      icon: "🔥",
+      color: "#F97316", // orange
+    },
+    {
+      header: "EARLY RISER",
+      work: "3 Mornings",
+      subHeader: "Peak productivity",
+      icon: "🌅",
+      color: "#3B82F6", // blue
+    },
+    {
+      header: "WEEKEND HUSTLE",
+      work: "2 Days",
+      subHeader: "Pushed limits",
+      icon: "🚀",
+      color: "#10B981", // green
+    },
+    {
+      header: "ALL-NIGHTER",
+      work: "1 Night",
+      subHeader: "Extreme effort",
+      icon: "🌙",
+      color: "#8B5CF6", // purple
+    },
+  ];
+
   return (
     <section>
       <div
-        className="container mx-auto px-4 md:px-6
-           2xl:max-w-[1400px]"
+        className="container mx-auto px-4 md:px-6 
+      2xl:max-w-[1400px]"
       >
         <div>
           <div className="flex gap-3 mt-9 items-center ">
@@ -21,49 +53,48 @@ export const UserInfo = () => {
             />
             <div>
               <p
-                className="b
-               text-[#252C20] text-[48px] to-[#252C20]"
+                className=" font-Roboto
+                dark:text-white font-semibold font-in  text-[48px] "
               >
                 Tharun Sharma
               </p>
               <span
-                className="b
-               text-[#252C20] text-[21px] to-[#252C20]"
+                className="ml-2
+       text-muted-foreground font-Roboto text-[18px] -[#252C20]"
               >
-                UserTHarun
+                @usertharun
               </span>
-              <p>
-                {" "}
+              <p
+                className="ml-2
+       text-muted-foreground font-Roboto text-[21px] -[#252C20]"
+              >
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Consectetur optio voluptatibus odio similique repellendus
                 eligendi
               </p>
-              <div>
-                <p>Followers 2</p>
-                <p>Following 6</p>
+              <div className="mt-3 ml-2 flex gap-5">
+                <a href="#" className=" cursor-pointer">
+                  Followers 2
+                </a>
+                <a>Following 6</a>
               </div>
             </div>
           </div>
 
           <div
-            className="flex gap-9  cursor-pointer relative
-             bg-[#181d26] w-fit  mx-auto
-           rounded-2xl px-1 py-1 "
+            className="flex gap-9 
+ cursor-pointer relative dark:bg-primary-foreground/90  w-fit mx-auto rounded-2xl px-1 py-1 "
           >
             <div
-              className={`  w-[124px]
-                 ml-2 mt-1
-                  bg-accent-foreground
-                   duration-300 ease-in-out
-                     h-[48px] rounded-2xl 
-                     z-20 top-0 left-0 
-                     absolute ${
-                       active === 0
-                         ? " translate-x-0"
-                         : active === 1
-                         ? " translate-x-[138%]"
-                         : "translate-x-[270%]"
-                     }`}
+              className={`w-[124px]  ml-2 mt-1 bg-gradient-tertiary
+                 duration-300 ease-in-out h-[48px] 
+                 rounded-2xl z-20 top-0 left-0 absolute ${
+                   active === 0
+                     ? " translate-x-0"
+                     : active === 1
+                     ? " translate-x-[138%]"
+                     : "translate-x-[270%]"
+                 }`}
             ></div>
             <button
               onClick={() => {
@@ -87,7 +118,7 @@ export const UserInfo = () => {
             </button>
             <button
               onClick={() => {
-                activeHandler(3);
+                activeHandler(2);
               }}
               className="hover:opacity-90 relative z-20 
               cursor-pointer px-9 py-3 text-white  
@@ -96,66 +127,78 @@ export const UserInfo = () => {
               Language
             </button>
           </div>
-          <div className=" grid grid-cols-3">
-            {" "}
-            <div
-              className="grid grid-cols-1 
-           w-fit gap-5
-             bg-[#151B23] p-6 text-white"
-            >
-              <div
-                className="bg-[#1E2530]
-               rounded-xl px-[64px] py-5 flex flex-col gap-2 shadow-inner"
-              >
-                <div className="text-xs text-slate-400 uppercase tracking-wide">
-                  Hours Logged
-                </div>
-                <div className="text-3xl font-semibold">19.6 hrs</div>
-                <div className="text-sm text-teal-400">Keep the rhythm 🎧</div>
-              </div>
 
-              <div className="bg-[#1E2530] rounded-xl p-5 flex flex-col gap-2 shadow-inner">
-                <div className="text-xs text-slate-400 uppercase tracking-wide">
-                  Late Grinds
-                </div>
-                <div className="text-3xl font-semibold">0 nights</div>
-                <div className="text-sm text-orange-300">Balanced focus ⚖️</div>
+          <div className="flex gap-4  ">
+            {active === 0 && (
+              <div className="flex  flex-1 flex-col 2xl:w-80 gap-6 items-center 2xl:mt-6">
+                {grindStats.map((item) => {
+                  return (
+                    <div>
+                      <UserPerformanceComp
+                        header={item.header}
+                        subHeader={item.subHeader}
+                        work={item.work}
+                        icon={item.icon}
+                        color={item.color}
+                      />
+                    </div>
+                  );
+                })}
               </div>
-
-              <div className="bg-[#1E2530] rounded-xl p-5 flex flex-col gap-2 shadow-inner">
-                <div className="text-xs text-slate-400 uppercase tracking-wide">
-                  Tech Stack
-                </div>
-                <div className="text-3xl font-semibold">9 tools</div>
-                <div className="text-sm text-purple-300">
-                  Multi-skilled dev 🛠️
-                </div>
-              </div>
-
-              <div className="bg-[#1E2530] rounded-xl p-5 flex flex-col gap-2 shadow-inner">
-                <div className="text-xs text-slate-400 uppercase tracking-wide">
-                  Consistency
-                </div>
-                <div className="text-3xl font-semibold">9 days</div>
-                <div className="text-sm text-yellow-300">Daily grind 🔥</div>
-              </div>
+            )}
+            <div className="xl:w-[780px] flex  mx-auto">
+              <UserOverview active={active} />
+              {active === 1 && <ActivityInsights />}
             </div>
-            <div className="w-[560px] ">
-              <UserOverview />
-            </div>
-            {/* <div>
-              <DarkCard />
-              <DarkCard2 />
-              <DarkCard4 />
-            </div> */}
+            {active === 0 && (
+              <div className="flex flex-col 2xl:w-80 gap-6 items-center 2xl:mt-6 ">
+                <TopLanguage />
+                <Performance />
+              </div>
+            )}
           </div>
         </div>
       </div>
     </section>
   );
 };
-const DarkCard = () => (
-  <div className="w-72 p-6 bg-[#1E2530] rounded-xl shadow-2xl border border-gray-700">
+
+const UserPerformanceComp = ({
+  header,
+  subHeader,
+  work,
+  icon,
+  color,
+}: {
+  header: string;
+  subHeader: string;
+  work: string;
+  icon: any;
+  color: string;
+}) => (
+  <div
+    className="w-48  px-6 py-7  dark:bg-primary-foreground/90
+  rounded-xl shadow-2xl border border-gray-700"
+  >
+    <div className=" rounded-xl flex flex-col gap-2 shadow-inner">
+      <div className="text-xs text-slate-400 uppercase tracking-wide">
+        {header}
+      </div>
+      <div className={`bg-[${color}] text-3xl whitespace-nowrap font-semibold`}>
+        {work}
+      </div>
+      <div className="text-sm text-teal-400">
+        {subHeader} {icon}
+      </div>
+    </div>
+  </div>
+);
+
+const TopLanguage = () => (
+  <div
+    className="w-full  p-6  dark:bg-primary-foreground/90
+  rounded-xl shadow-2xl border border-gray-700"
+  >
     <div className="flex items-center mb-4">
       <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3">
         <Star className="w-5 h-5 text-white" />
@@ -181,42 +224,16 @@ const DarkCard = () => (
   </div>
 );
 
-const DarkCard2 = () => (
-  <div className="w-72 p-6 bg-[#1E2530] rounded-xl shadow-2xl border border-gray-700">
-    <div className="flex items-center mb-4">
-      <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3">
-        <Star className="w-5 h-5 text-white" />
-      </div>
-      <div>
-        <h3 className="text-white font-semibold">Top Language</h3>
-        <p className="text-gray-400 text-xs">During your streak</p>
-      </div>
-    </div>
-    <div className="space-y-4">
-      <div
-        role="progressbar"
-        data-state="indeterminate"
-        data-max="100"
-        data-slot="progress"
-        className="bg-primary/20 relative h-2 overflow-hidden 
-        rounded-full w-[90%]"
-      >
-        <div
-          data-state="indeterminate"
-          data-max="100"
-          data-slot="progress-indicator"
-          className="bg-gradient-to-r from-green-400 to-emerald-500 h-full w-full flex-1 
-          transition-all"
-          style={{ transform: "translateX(-43%)" }}
-        ></div>
-      </div>
-    </div>
-  </div>
-);
-const DarkCard3 = () => (
-  <div className="w-80 p-6 bg-[#1E2530] border border-gray-700 rounded-2xl shadow-2xl">
+const Performance = () => (
+  <div
+    className="w-80 p-6  border dark:bg-primary-foreground/90 
+  border-gray-700 rounded-2xl shadow-2xl"
+  >
     <div className="flex items-center mb-6">
-      <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center mr-3">
+      <div
+        className="w-10 h-10 bg-gradient-to-r from-cyan-400
+       to-blue-500 rounded-lg flex items-center justify-center mr-3"
+      >
         <Award className="w-5 h-5 text-white" />
       </div>
       <div>
@@ -226,7 +243,7 @@ const DarkCard3 = () => (
     </div>
 
     <div className="space-y-5">
-      <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+      <div className="bg-gradient-tertiary rounded-xl p-4 border border-gray-700">
         <div className="flex justify-between items-center mb-3">
           <span className="text-gray-300 font-medium">Daily Average</span>
           <span className="text-2xl font-bold text-white">90h</span>
@@ -240,7 +257,7 @@ const DarkCard3 = () => (
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <div className="bg-gray-800 rounded-xl p-3 border border-purple-500/30">
+        <div className="bg-gradient-tertiary rounded-xl p-3 border border-purple-500/30">
           <div className="flex items-center mb-2">
             <Calendar className="w-4 h-4 text-white mr-2" />
             <span className="text-gray-400 text-sm">Peak Day</span>
@@ -248,7 +265,7 @@ const DarkCard3 = () => (
           <div className="text-lg font-bold text-white">70</div>
           <div className="text-xs text-white">Your most productive day</div>
         </div>
-        <div className="bg-gray-800 rounded-xl p-3 border border-orange-500/30">
+        <div className="bg-gradient-tertiary rounded-xl p-3 border border-orange-500/30">
           <div className="flex items-center mb-2">
             <Coffee className="w-4 h-4 text-white mr-2" />
             <span className="text-gray-400 text-sm">Longest Session</span>
@@ -259,7 +276,7 @@ const DarkCard3 = () => (
       </div>
 
       {/* Active Days */}
-      <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+      <div className="bg-gradient-tertiary rounded-xl p-4 border border-gray-700">
         <div className="flex justify-between items-center mb-3">
           <span className="text-gray-300 font-medium">Active Days</span>
           <span className="text-2xl font-bold text-white">15 days</span>
@@ -277,16 +294,3 @@ const DarkCard3 = () => (
     </div>
   </div>
 );
-const DarkCard4 = () => {
-  return (
-    <div>
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 place-items-center">
-          <div className="space-y-4">
-            <DarkCard3 />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};

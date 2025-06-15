@@ -1,17 +1,25 @@
 export const StartSection = () => {
   return (
-    <section className="py-12 flex justify-center sm:py-16 md:py-20">
+    <section
+      className="py-12 flex justify-center sm:py-16
+     md:py-20"
+    >
       <div className="container px-4 md:px-6">
         <div
-          className="relative overflow-hidden rounded-3xl border-2 bg-muted/30 p-6 sm:p-8 md:p-12"
+          className="relative overflow-hidden 
+          rounded-3xl border-2 bg-muted/30 p-6 sm:p-8 md:p-12"
           style={{ opacity: "100", transform: "none" }}
         >
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl"></div>
+          <div
+            className="absolute -right-20 -top-20 h-64 w-64
+           rounded-full bg-primary/10 blur-3xl"
+          ></div>
           <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl"></div>
           <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]"></div>
           <div className="relative mx-auto max-w-3xl text-center">
             <div
-              className="inline-flex items-center justify-center rounded-full border bg-background px-3 py-1 text-sm font-medium shadow-sm"
+              className="inline-flex items-center justify-center
+               rounded-full border bg-background px-3 py-1 text-sm font-medium shadow-sm"
               style={{ opacity: "100", transform: "none" }}
             >
               <svg

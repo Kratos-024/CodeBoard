@@ -1,7 +1,7 @@
 export const HeroSection2 = () => {
   return (
     <section>
-      <div className="relative bg-background ">
+      <div className="relative  ">
         <div className="absolute inset-0 w-full h-full">
           <div
             className="absolute -top-[148px] -left-4 w-72 h-72

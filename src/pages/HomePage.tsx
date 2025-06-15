@@ -13,7 +13,7 @@ export const HomePage = ({
   setDarkMode: any;
 }) => {
   return (
-    <div>
+    <div className="bg-muted/30">
       <Navbar />
       <HeroSection2 />
       <Feature />

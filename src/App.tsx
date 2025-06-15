@@ -20,7 +20,12 @@ function App() {
             element={<HomePage darkMode={darkMode} setDarkMode={setDarkMode} />}
           ></Route>
           <Route path="/leaderBoard" element={<LeaderBoardPage />}></Route>
-          <Route path="/Profile" element={<ProfilePage />}></Route>
+          <Route
+            path="/Profile"
+            element={
+              <ProfilePage darkMode={darkMode} setDarkMode={setDarkMode} />
+            }
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>

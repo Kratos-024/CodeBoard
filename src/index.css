@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -40,7 +41,10 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
-
+.font-Roboto {
+  font-family: "Roboto", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -109,6 +113,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
 }
+
 @keyframes blob {
   0% {
     transform: translate(0px, 0px) scale(1);
@@ -126,6 +131,24 @@
 
 .animate-blob {
   animation: blob 7s ease infinite;
+}
+
+.bg-gradient-primary {
+  background-image: radial-gradient(circle at center, #ba5f5f, #0f172a);
+}
+/*  */
+.bg-gradient-secondary {
+  /* background-image: radial-gradient(circle at center, #7e6b6b, #0f172a); */
+  background-color: #38191921;
+}
+
+.bg-gradient-tertiary {
+  /* background-image: radial-gradient(circle at center, #7e6b6b, #0f172a); */
+  background-color: #bfa7a721;
+}
+.bg-gradient-terta {
+  /* background-image: radial-gradient(circle at center, #7e6b6b, #0f172a); */
+  background-color: color-mix(in oklab, var(--muted) 30%, transparent);
 }
 
 @layer base {

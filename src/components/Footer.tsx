@@ -4,26 +4,33 @@ export const Footer = () => {
   return (
     <section>
       <div
-        data-state="active"
-        data-orientation="horizontal"
-        role="tabpanel"
-        aria-labelledby="radix-«R4outqnbb»-trigger-preview"
-        id="radix-«R4outqnbb»-content-preview"
-        className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2
-         focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border"
+        className="mt-2 
+         relative "
       >
-        <div className="theme-zinc w-full" style={{ borderRadius: "0.5rem" }}>
-          <div className="preview flex min-h-[350px] w-full justify-center p-2 sm:p-10 items-center">
+        <div className=" w-full" style={{ borderRadius: "0.5rem" }}>
+          <div
+            className="preview flex min-h-[350px] w-full 
+          justify-center p-2 sm:p-10 items-center"
+          >
             <div
-              className="border-t border-neutral-100 dark:border-white/[0.1] px-8 py-20 bg-white
-                     dark:bg-neutral-950 w-full relative overflow-hidden"
+              className=" dark:border-white/[0.1] px-8 py-20
+               bg-white dark:bg-muted/30 w-full relative
+                overflow-hidden"
             >
-              <div className="max-w-7xl mx-auto text-sm text-neutral-500  justify-between items-start  md:px-8">
-                <div className="flex flex-col items-center justify-center w-full relative">
+              <div
+                className="max-w-7xl mx-auto text-sm
+               text-neutral-500  justify-between items-start
+              "
+              >
+                <div
+                  className="flex flex-col items-center 
+                justify-center w-full relative"
+                >
                   <div className="mr-0 md:mr-4  md:flex mb-4">
                     <a
                       className="font-normal 
-                            flex space-x-2 items-center text-sm mr-4  text-black px-2 py-1 
+                            flex space-x-2 items-center
+                             text-sm mr-4  text-black px-2 py-1 
                              relative z-20"
                       href="/"
                     >
