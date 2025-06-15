@@ -1,5 +1,4 @@
 import Navbar from "../components/NavBar";
-import { ConsistencyGit } from "../components/Profile/ConsistencyGit";
 import { UserInfo } from "../components/Profile/UserInfo";
 
 export const ProfilePage = () => {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Award, Calendar, Coffee, Star } from "lucide-react";
 import { UserOverview } from "./ConsistencyGit";
 
 export const UserInfo = () => {
@@ -142,51 +143,150 @@ export const UserInfo = () => {
             <div className="w-[560px] ">
               <UserOverview />
             </div>
-            <div
-              className="grid grid-cols-1 
-           w-fit gap-5
-             bg-[#151B23] p-6 text-white"
-            >
-              <div
-                className="bg-[#1E2530]
-               rounded-xl px-[64px] py-5 flex flex-col gap-2 shadow-inner"
-              >
-                <div className="text-xs text-slate-400 uppercase tracking-wide">
-                  Hours Logged
-                </div>
-                <div className="text-3xl font-semibold">19.6 hrs</div>
-                <div className="text-sm text-teal-400">Keep the rhythm 🎧</div>
-              </div>
-
-              <div className="bg-[#1E2530] rounded-xl p-5 flex flex-col gap-2 shadow-inner">
-                <div className="text-xs text-slate-400 uppercase tracking-wide">
-                  Late Grinds
-                </div>
-                <div className="text-3xl font-semibold">0 nights</div>
-                <div className="text-sm text-orange-300">Balanced focus ⚖️</div>
-              </div>
-
-              <div className="bg-[#1E2530] rounded-xl p-5 flex flex-col gap-2 shadow-inner">
-                <div className="text-xs text-slate-400 uppercase tracking-wide">
-                  Tech Stack
-                </div>
-                <div className="text-3xl font-semibold">9 tools</div>
-                <div className="text-sm text-purple-300">
-                  Multi-skilled dev 🛠️
-                </div>
-              </div>
-
-              <div className="bg-[#1E2530] rounded-xl p-5 flex flex-col gap-2 shadow-inner">
-                <div className="text-xs text-slate-400 uppercase tracking-wide">
-                  Consistency
-                </div>
-                <div className="text-3xl font-semibold">9 days</div>
-                <div className="text-sm text-yellow-300">Daily grind 🔥</div>
-              </div>
-            </div>
+            {/* <div>
+              <DarkCard />
+              <DarkCard2 />
+              <DarkCard4 />
+            </div> */}
           </div>
         </div>
       </div>
     </section>
+  );
+};
+const DarkCard = () => (
+  <div className="w-72 p-6 bg-[#1E2530] rounded-xl shadow-2xl border border-gray-700">
+    <div className="flex items-center mb-4">
+      <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3">
+        <Star className="w-5 h-5 text-white" />
+      </div>
+      <div>
+        <h3 className="text-white font-semibold">Top Language</h3>
+        <p className="text-gray-400 text-xs">During your streak</p>
+      </div>
+    </div>
+    <div className="space-y-4">
+      <div className="text-4xl font-bold text-white">Javascript</div>
+      <div className="flex justify-between items-center">
+        <div className="text-gray-300">
+          <div className="text-lg font-semibold">15 days</div>
+          <div className="text-xs text-gray-400">Days</div>
+        </div>
+        <div className="text-gray-300">
+          <div className="text-lg font-semibold">90%</div>
+          <div className="text-xs text-gray-400">Usage</div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const DarkCard2 = () => (
+  <div className="w-72 p-6 bg-[#1E2530] rounded-xl shadow-2xl border border-gray-700">
+    <div className="flex items-center mb-4">
+      <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3">
+        <Star className="w-5 h-5 text-white" />
+      </div>
+      <div>
+        <h3 className="text-white font-semibold">Top Language</h3>
+        <p className="text-gray-400 text-xs">During your streak</p>
+      </div>
+    </div>
+    <div className="space-y-4">
+      <div
+        role="progressbar"
+        data-state="indeterminate"
+        data-max="100"
+        data-slot="progress"
+        className="bg-primary/20 relative h-2 overflow-hidden 
+        rounded-full w-[90%]"
+      >
+        <div
+          data-state="indeterminate"
+          data-max="100"
+          data-slot="progress-indicator"
+          className="bg-gradient-to-r from-green-400 to-emerald-500 h-full w-full flex-1 
+          transition-all"
+          style={{ transform: "translateX(-43%)" }}
+        ></div>
+      </div>
+    </div>
+  </div>
+);
+const DarkCard3 = () => (
+  <div className="w-80 p-6 bg-[#1E2530] border border-gray-700 rounded-2xl shadow-2xl">
+    <div className="flex items-center mb-6">
+      <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center mr-3">
+        <Award className="w-5 h-5 text-white" />
+      </div>
+      <div>
+        <h3 className="text-xl font-bold text-white">Performance</h3>
+        <p className="text-white text-sm">Coding metrics and achievements</p>
+      </div>
+    </div>
+
+    <div className="space-y-5">
+      <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-gray-300 font-medium">Daily Average</span>
+          <span className="text-2xl font-bold text-white">90h</span>
+        </div>
+        <div className="w-full bg-gray-700 rounded-full h-2">
+          <div
+            className="bg-gradient-to-r from-green-400 to-emerald-500 h-2 rounded-full transition-all duration-700 shadow-lg shadow-cyan-500/50"
+            style={{ width: `90 * 100}%` }}
+          ></div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="bg-gray-800 rounded-xl p-3 border border-purple-500/30">
+          <div className="flex items-center mb-2">
+            <Calendar className="w-4 h-4 text-white mr-2" />
+            <span className="text-gray-400 text-sm">Peak Day</span>
+          </div>
+          <div className="text-lg font-bold text-white">70</div>
+          <div className="text-xs text-white">Your most productive day</div>
+        </div>
+        <div className="bg-gray-800 rounded-xl p-3 border border-orange-500/30">
+          <div className="flex items-center mb-2">
+            <Coffee className="w-4 h-4 text-white mr-2" />
+            <span className="text-gray-400 text-sm">Longest Session</span>
+          </div>
+          <div className="text-lg font-bold text-white">900h</div>
+          <div className="text-xs text-white">That's a lot of caffeine!</div>
+        </div>
+      </div>
+
+      {/* Active Days */}
+      <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-gray-300 font-medium">Active Days</span>
+          <span className="text-2xl font-bold text-white">15 days</span>
+        </div>
+        <div className="w-full bg-gray-700 rounded-full h-2">
+          <div
+            className="bg-gradient-to-r from-green-400 to-emerald-500 h-2 rounded-full transition-all duration-700 shadow-lg shadow-green-500/50"
+            style={{ width: `90 * 100}%` }}
+          ></div>
+        </div>
+        <div className="text-xs text-white font-semibold mt-2">
+          100% coverage
+        </div>
+      </div>
+    </div>
+  </div>
+);
+const DarkCard4 = () => {
+  return (
+    <div>
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 place-items-center">
+          <div className="space-y-4">
+            <DarkCard3 />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
