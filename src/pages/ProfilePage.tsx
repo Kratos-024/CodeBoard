@@ -1,5 +1,5 @@
 import Navbar from "../components/NavBar";
-import { UserInfo } from "../components/Profile/UserInfo";
+import { UserStats } from "../components/Profile/UserInfo";
 import "../index.css";
 
 export const ProfilePage = ({
@@ -11,12 +11,9 @@ export const ProfilePage = ({
 }) => {
   return (
     <section>
-      <div
-        className="dark:bg-muted/30 w-full min-h-screen container
-       "
-      >
+      <div className="dark:bg-muted/30 w-full min-h-screen">
         <Navbar />
-        <UserInfo />
+        <UserStats />
       </div>
       <button
         onClick={() => setDarkMode(!darkMode)}

@@ -3,6 +3,7 @@ import ReactTooltip from "react-tooltip";
 import { IoIosCalendar } from "react-icons/io";
 import { LanguageChart } from "./UserOverview";
 import { Calendar, Clock, Trophy, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const theme = {
   light: ["#ebedf0", "#c6e48b", "#7bc96f", "#239a3b", "#196127"],
@@ -29,6 +30,20 @@ const generateData = () => {
 const data = generateData();
 
 export function UserGitCalendar() {
+  const [blockSize, setBlockSize] = useState(28);
+
+  useEffect(() => {
+    const updateSize = () => {
+      const isXL = window.matchMedia("(min-width: 1280px)").matches;
+      setBlockSize(isXL ? 32 : 28);
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
   return (
     <div>
       <ActivityCalendar
@@ -37,7 +52,7 @@ export function UserGitCalendar() {
         hideTotalCount={false}
         showWeekdayLabels={["sun", "mon", "tue", "wed", "thu", "fri", "sat"]}
         hideColorLegend={false}
-        blockSize={28}
+        blockSize={28} // max-2xl: 28
         blockRadius={8}
         blockMargin={12}
         fontSize={21}
@@ -125,12 +140,9 @@ const ActivityInsights = () => {
 
 export const UserCommitChart = () => {
   return (
-    <section
-      className="2xl:w-full lg:max-w-[720px]
-    xl:max-w-[780px] "
-    >
+    <section className="2xl:w-full max-md:max-w-[620px]">
       <div
-        className="dark:bg-primary-foreground/90 px-3 py-6
+        className="dark:bg-primary-foreground/90 px-7 py-6
        rounded-lg "
       >
         <div className="py-2 px-4 ">
@@ -141,7 +153,7 @@ export const UserCommitChart = () => {
           <h3 className="text-white text-[22px]">
             Coding patterns for last 30 days
           </h3>
-          <div className="flex gap-6 mt-4 ">
+          <div className="flex gap-6 mt-4  ">
             <UserGitCalendar />
           </div>
         </div>
