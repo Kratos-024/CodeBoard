@@ -10,8 +10,11 @@ export const ProfilePage = ({
   setDarkMode: any;
 }) => {
   return (
-    <section className="">
-      <div className="dark:bg-muted/30 w-full min-h-screen screen">
+    <section>
+      <div
+        className="dark:bg-muted/30 w-full min-h-screen container
+       "
+      >
         <Navbar />
         <UserInfo />
       </div>

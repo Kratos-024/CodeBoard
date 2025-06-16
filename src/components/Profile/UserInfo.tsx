@@ -131,9 +131,16 @@ export const UserInfo = () => {
             </button>
           </div>
 
-          <div className="flex gap-4  ">
+          <div
+            className="flex 
+            xl:max-w-[1400px] 
+            mx-auto"
+          >
             {active === 0 && (
-              <div className="flex  flex-1 flex-col 2xl:w-80 gap-6 items-center 2xl:mt-6">
+              <div
+                className="flex flex-1 flex-col 2xl:w-80 lg:max-w-[210px]
+              gap-6 items-center lg:mt-9"
+              >
                 {grindStats.map((item) => {
                   return (
                     <div>
@@ -149,28 +156,40 @@ export const UserInfo = () => {
                 })}
               </div>
             )}
-            <div className="xl:w-[780px] flex  mx-auto">
+
+            {/* {Second div of grid} */}
+            <div className="bg-red-300 max-xl:max-w-full flex  mx-auto">
               {active === 0 && (
                 <div
-                  className="flex gap-2 flex-col 
+                  className="flex gap-2 
+ flex-col  mt-9 lg:max-w-dull
        flex-1 items-center"
                 >
                   <UserCommitChart />
-                  <UserProgrammingLnaguageUsed />
                 </div>
               )}
               {active === 1 && (
-                <div
-                  className="flex gap-2  
-      items-center"
-                >
+                <div className="flex gap-7 xl:w-[1280px] lg:w-[980px] justify-center mt-9">
                   <UserCommitChart />
                   <ActivityInsights />
                 </div>
               )}
+
+              {active === 2 && (
+                <div
+                  className="flex gap-7 xl:w-full
+                 lg:max-w-full justify-center mt-9"
+                >
+                  <UserProgrammingLnaguageUsed />
+                </div>
+              )}
             </div>
             {active === 0 && (
-              <div className="flex flex-col 2xl:w-80 gap-6 items-center 2xl:mt-6 ">
+              <div
+                className="flex flex-col 
+max-xl:max-w-full
+               gap-6 items-center lg:mt-9 "
+              >
                 <TopLanguage />
                 <Performance />
               </div>
@@ -196,7 +215,9 @@ const UserPerformanceComp = ({
   color: string;
 }) => (
   <div
-    className="w-48  px-6 py-7  dark:bg-primary-foreground/90
+    className=" lg:w-[210px]                 
+                
+                bg-red-300 px-6 py-7  dark:bg-primary-foreground/90
   rounded-xl shadow-2xl border border-gray-700"
   >
     <div className=" rounded-xl flex flex-col gap-2 shadow-inner">
@@ -215,7 +236,8 @@ const UserPerformanceComp = ({
 
 const TopLanguage = () => (
   <div
-    className="w-full  p-6  dark:bg-primary-foreground/90
+    className="w-full  p-6 
+    dark:bg-primary-foreground/90
   rounded-xl shadow-2xl border border-gray-700"
   >
     <div className="flex items-center mb-4">
@@ -245,7 +267,8 @@ const TopLanguage = () => (
 
 const Performance = () => (
   <div
-    className="w-80 p-6  border dark:bg-primary-foreground/90 
+    className="w-80 p-6
+     border dark:bg-primary-foreground/90 
   border-gray-700 rounded-2xl shadow-2xl"
   >
     <div className="flex items-center mb-6">
