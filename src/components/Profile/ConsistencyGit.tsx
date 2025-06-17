@@ -29,21 +29,7 @@ const generateData = () => {
 
 const data = generateData();
 
-export function UserGitCalendar() {
-  const [blockSize, setBlockSize] = useState(28);
-
-  useEffect(() => {
-    const updateSize = () => {
-      const isXL = window.matchMedia("(min-width: 1280px)").matches;
-      setBlockSize(isXL ? 32 : 28);
-    };
-
-    updateSize();
-    window.addEventListener("resize", updateSize);
-
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
-
+export function UserGitCalendar({ blockSize }: { blockSize: number }) {
   return (
     <div>
       <ActivityCalendar
@@ -52,10 +38,10 @@ export function UserGitCalendar() {
         hideTotalCount={false}
         showWeekdayLabels={["sun", "mon", "tue", "wed", "thu", "fri", "sat"]}
         hideColorLegend={false}
-        blockSize={28} // max-2xl: 28
+        blockSize={blockSize} // max-2xl: 28 max-sm:14
         blockRadius={8}
         blockMargin={12}
-        fontSize={21}
+        fontSize={14} //max-md: 21
       />
       <ReactTooltip />
     </div>
@@ -65,12 +51,11 @@ export function UserGitCalendar() {
 const ActivityInsights = () => {
   return (
     <div
-      className=" dark:bg-primary-foreground/90  
-     p-4 rounded-xl backdrop-blur-sm lg:w-[320px] 
-        "
+      className="dark:bg-primary-foreground/90
+     p-4 rounded-xl backdrop-blur-sm"
     >
-      <div className="mb-6 ">
-        <div className="flex items-center gap-2 mb-2 ">
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-2">
           <Zap className="w-5 h-5 text-orange-400" />
           <h2 className="text-white font-semibold text-lg">
             Activity Insights
@@ -81,23 +66,23 @@ const ActivityInsights = () => {
         </p>
       </div>
 
-      <div className="space-y-9">
-        <div className="flex flex-col gap-4  items-center justify-between">
-          <div className="flex  items-center gap-3">
+      <div className="grid grid-cols-1 lg:w-[280px] lg:grid-cols-2 xl:grid-cols-1 gap-4">
+        <div
+          className="flex flex-col 
+         items-center text-center p-3
+         rounded-lg "
+        >
+          <div className="flex items-center gap-2 mb-2">
             <div className="p-2 bg-orange-500/20 rounded-lg">
               <Clock className="w-4 h-4 text-orange-400" />
             </div>
-            <span className="text-slate-300 whitespace-nowrap  text-sm">
-              Most Active Time
-            </span>
+            <span className="text-slate-300 text-sm">Most Active Time</span>
           </div>
-          <span className="text-white whitespace-nowrap font-medium">
-            8:00 PM - 11:00 PM
-          </span>
+          <span className="text-white font-medium">8:00 PM - 11:00 PM</span>
         </div>
 
-        <div className="flex items-center flex-col gap-4 justify-center">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col items-center text-center p-3 rounded-lg ">
+          <div className="flex items-center gap-2 mb-2">
             <div className="p-2 bg-blue-500/20 rounded-lg">
               <Calendar className="w-4 h-4 text-blue-400" />
             </div>
@@ -106,14 +91,14 @@ const ActivityInsights = () => {
           <span className="text-white font-medium">Wednesday</span>
         </div>
 
-        <div className="flex items-center flex-col gap-4 justify-center">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col items-center text-center p-3 rounded-lg ">
+          <div className="flex items-center gap-2 mb-2">
             <div className="p-2 bg-red-500/20 rounded-lg">
               <Zap className="w-4 h-4 text-red-400" />
             </div>
             <span className="text-slate-300 text-sm">Current Streak</span>
           </div>
-          <div className="text-right flex flex-col items-center">
+          <div className="flex flex-col items-center">
             <div className="text-white font-medium">13 days</div>
             <div className="text-orange-400 text-xs">
               Keep the momentum going!
@@ -121,16 +106,16 @@ const ActivityInsights = () => {
           </div>
         </div>
 
-        <div className="flex items-center flex-col gap-4 justify-center">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col items-center  text-center p-3 rounded-lg ">
+          <div className="flex items-center gap-2 mb-2">
             <div className="p-2 bg-yellow-500/20 rounded-lg">
               <Trophy className="w-4 h-4 text-yellow-400" />
             </div>
             <span className="text-slate-300 text-sm">Longest Streak</span>
           </div>
-          <div className="text-right flex flex-col items-center">
-            <div className="text-white  font-medium">14 days</div>
-            <div className="text-slate-400 text-xs ">Achieved on April 15</div>
+          <div className="flex flex-col items-center">
+            <div className="text-white font-medium">14 days</div>
+            <div className="text-slate-400 text-xs">Achieved on April 15</div>
           </div>
         </div>
       </div>
@@ -139,8 +124,42 @@ const ActivityInsights = () => {
 };
 
 export const UserCommitChart = () => {
+  const [blockSize, setBlockSize] = useState(14);
+
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth;
+
+      let newSize = 14;
+      if (width >= 1280) {
+        newSize = 32;
+      } else if (width >= 640) {
+        newSize = 24;
+      } else if (width >= 1024) {
+        newSize = 28;
+      } else if (width >= 768) {
+        newSize = 16;
+      }
+
+      setBlockSize(newSize);
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  useEffect(() => {
+    console.log("blockSize updated:", blockSize);
+  }, [blockSize]);
+
   return (
-    <section className="2xl:w-full max-md:max-w-[620px]">
+    <section
+      className="2xl:w-full 
+    max-lg:max-w-[680px] max-md:max-w-full
+     max-sm:max-w-full"
+    >
       <div
         className="dark:bg-primary-foreground/90 px-7 py-6
        rounded-lg "
@@ -153,8 +172,8 @@ export const UserCommitChart = () => {
           <h3 className="text-white text-[22px]">
             Coding patterns for last 30 days
           </h3>
-          <div className="flex gap-6 mt-4  ">
-            <UserGitCalendar />
+          <div className="mt-4 mx-auto flex justify-center">
+            <UserGitCalendar blockSize={blockSize} />
           </div>
         </div>
       </div>

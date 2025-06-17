@@ -156,20 +156,18 @@ export const UserStats = () => {
             />
           </div>
           <div
-            className="2xl:max-w-[1400px] 
-      max-md:gap-4  gap-9  mx-auto flex
-       max-md:mt-6
+            className="2xl:max-w-[1280px] max-md:gap-4 gap-9 mx-auto flex max-md:mt-6
          max-xl:max-w-[1080px] max-md:grid max-md:grid-cols-1 max-2xl:max-w-[1220px] max-md:w-full  
             "
           >
             {/* {First div of grid} */}
             {active === 0 && (
               <div
-                className="flex max-md:max-w-full 
-              max-md:mx-auto   
-               max-md:grid max-md:grid-cols-2
-                flex-col px-1  
-                max-2xl:max-w-[340px] gap-6 
+                className="flex max-md:max-w-full max-md:mx-auto mt-9 
+                max-xl:max-w-[190px] max-md:grid 
+                max-md:grid-cols-2 
+                flex-col max-lg:hidden 
+          px-1 max-2xl:max-w-[340px] gap-6 max-lg:max-w-[440px]
                 items-center lg:mt-9"
               >
                 {grindStats.map((item) => {
@@ -192,14 +190,27 @@ export const UserStats = () => {
             <div className="flex  mx-auto">
               {active === 0 && (
                 <div
-                  className="flex gap-2 max-2xl:max-w-[980px] max-:bg-red-300 
- flex-col mt-9 items-center"
+                  className="flex gap-2 max-2xl:max-w-[980px]
+  max-md:w-[640px] max-lg:w-[560px] max-sm:max-w-[480px] max-lg:max-w-[720px]
+ flex-col mt-9 items-center  max-xl:w-[560px]"
                 >
-                  <UserCommitChart />
+                  <div className="">
+                    <UserCommitChart />
+                  </div>
+                  {/* <div className=" max-lg:flex mt-3 flex-col w-full gap-4 lg:hidden ">
+                    <TopLanguage /> max-sm:max-w-[480px]  max-lg:max-w-[620px]
+                    <Performance />
+                  </div> */}
                 </div>
               )}
               {active === 1 && (
-                <div className="flex gap-7 xl:w-[1280px] lg:w-[980px] justify-center mt-9">
+                <div
+                  className="flex gap-7
+                   xl:w-[1280px] max-lg:flex-col
+                   lg:w-[980px] lg:max-w-[1080px]
+                   justify-center
+                 mt-9"
+                >
                   <UserCommitChart />
                   <ActivityInsights />
                 </div>
@@ -208,7 +219,7 @@ export const UserStats = () => {
               {active === 2 && (
                 <div
                   className="flex gap-7 xl:w-full
-                 lg:max-w-full justify-center mt-9"
+              lg:max-w-full justify-center mt-9"
                 >
                   <UserProgrammingLnaguageUsed />
                 </div>
@@ -218,12 +229,15 @@ export const UserStats = () => {
             {/* {Third div of grid} */}
             {active === 0 && (
               <div
-                className="flex flex-col 2xl:max-w-full 
-max-md:flex-row max-2xl:max-w-[340px] max-md:max-w-full
-gap-6 items-center lg:mt-9 "
+                className="flex flex-col items-center gap-6 mt-9 mx-3 
+     max-md:flex-x
+     max-md:max-w-full
+     sm:w-full
+     md:w-[190px]
+     lg:w-[220px]
+     xl:w-[280px]"
               >
                 <TopLanguage />
-
                 <Performance />
               </div>
             )}
@@ -249,7 +263,9 @@ const UserPerformanceComp = ({
 }) => (
   <div
     className="max-2xl:max-w-[340px]
-max-md:w-[320px]  max-md:h-[180px] 
+     max-lg:w-[280px]
+max-md:w-[320px] max-sm:w-[220px] 
+max-md:h-[180px] max-xl:max-w-full
     lg:w-[210px]  px-6 py-7  
     dark:bg-primary-foreground/90
   rounded-xl shadow-2xl border border-gray-700"
@@ -270,21 +286,36 @@ max-md:w-[320px]  max-md:h-[180px]
 
 const TopLanguage = () => (
   <div
-    className="w-80 max-xl:w-64  max-md:hidden 
-    dark:bg-primary-foreground/90
-  rounded-xl shadow-2xl border border-gray-700"
+    className="
+    p-6 
+    border 
+    dark:bg-primary-foreground/90 
+    rounded-2xl 
+    shadow-2xl
+    w-full
+    sm:w-w-full
+    md:w-w-full
+    lg:w-full
+    xl:w-full
+    
+    lg:mx-7
+  "
   >
     <div className="flex items-center mb-4">
       <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3">
         <Star className="w-5 h-5 text-white" />
       </div>
       <div>
-        <h3 className="text-white font-semibold">Top Language</h3>
+        <h3 className="text-white font-semibold max-xl:whitespace-nowrap">
+          Top Language
+        </h3>
         <p className="text-gray-400 text-xs">During your streak</p>
       </div>
     </div>
     <div className="space-y-4">
-      <div className="text-4xl font-bold text-white">Javascript</div>
+      <div className="text-4xl font-bold max-xl:text-[22px] text-white">
+        Javascript
+      </div>
       <div className="flex justify-between items-center">
         <div className="text-gray-300">
           <div className="text-lg font-semibold">15 days</div>
@@ -301,16 +332,27 @@ const TopLanguage = () => (
 
 const Performance = () => (
   <div
-    className="w-80 p-6 max-xl:w-64 max-md:w-full mx-7
-     border dark:bg-primary-foreground/90 
-  border-gray-700 rounded-2xl shadow-2xl"
+    className="
+    p-6 
+    border 
+    dark:bg-primary-foreground/90 
+    rounded-2xl 
+    shadow-2xl
+    w-full
+    sm:w-full
+    md:w-w-full
+    lg:w-full
+    xl:w-full
+    
+    lg:mx-7
+  "
   >
     <div className="flex items-center mb-6">
       <div
-        className="w-10 h-10 bg-gradient-to-r from-cyan-400
+        className="w-10 h-10 max-xl:w-5 max-xl:h-5 max-xl:p-1 bg-gradient-to-r from-cyan-400
        to-blue-500 rounded-lg flex items-center justify-center mr-3"
       >
-        <Award className="w-5 h-5 text-white" />
+        <Award className="w-5 h-5  text-white" />
       </div>
       <div>
         <h3 className="text-xl font-bold text-white">Performance</h3>
@@ -325,13 +367,15 @@ const Performance = () => (
       p-4 border border-gray-700"
       >
         <div
-          className="flex justify-between 
+          className="flex max-xl:flex-col gap-1 justify-between  max-sm:flex-col
         items-center max-md:items-start mb-3"
         >
-          <span className="text-gray-300 font-medium">Daily Average</span>
+          <span className="max-xl:text-[14px] text-gray-300 max-sm:text-[10px] whitespace-nowrap font-medium">
+            Daily Average
+          </span>
           <span
-            className="text-2xl font-bold
-           max-md:text-[21px] text-white"
+            className="text-2xl font-bold  max-sm:text-[16px]
+        max-xl:text-[18px]   max-md:text-[21px] text-white"
           >
             90h
           </span>
@@ -351,17 +395,22 @@ const Performance = () => (
       </div>
       <div
         className=" bg-gradient-tertiary 
-        rounded-xl max-md:block
+        rounded-xl max-md:block hidden
       p-4 border border-gray-700"
       >
         <div
-          className="flex justify-between 
+          className="flex justify-between   flex-col
         items-center max-md:items-start mb-3"
         >
-          <span className="text-gray-300 font-medium">Active Days</span>
+          <span className="text-gray-300 max-sm:text-[10px] whitespace-nowrap font-medium">
+            Active Days
+          </span>
           <span
-            className="text-2xl font-bold
-           max-md:text-[21px] text-white"
+            className="text-2xl
+             font-bold max-sm:text-[16px]
+              whitespace-nowrap
+      
+          max-md:text-[18px] text-white"
           >
             15 Days
           </span>
@@ -376,41 +425,50 @@ const Performance = () => (
               h-2 rounded-full transition-all duration-700
                shadow-lg shadow-cyan-500/50"
             style={{ width: `90 * 100}%` }}
-          >
-            {" "}
-          </div>{" "}
+          ></div>
           <span
-            className="text-2xl font-bold
-         max-md:text-[11px] pb-1 text-white"
+            className="font-bold
+      text-[11px] pb-1 text-white"
           >
             100% coverage
           </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 ">
-        <div className="bg-gradient-tertiary rounded-xl p-3 border border-purple-500/30">
-          <div className="flex items-center mb-2">
-            <Calendar className="w-4 h-4 text-white mr-2" />
-            <span className="text-gray-400 text-sm">Peak Day</span>
-          </div>
-          <div className="text-lg font-bold text-white">70</div>
-          <div className="text-xs text-white">Your most productive day</div>
+      <div className="bg-gradient-tertiary rounded-xl p-3 border border-purple-500/30">
+        <div className="flex items-center mb-2">
+          <Calendar className="max-xl:w-[19px] w-9 h-9 text-white mr-2" />
+          <span className="text-gray-400 max-sm:text-[10px] whitespace-nowrap text-sm">
+            Peak Day
+          </span>
         </div>
-        <div className="bg-gradient-tertiary rounded-xl p-3 border border-orange-500/30">
-          <div className="flex items-center mb-2">
-            <Coffee className="w-4 h-4 text-white mr-2" />
-            <span className="text-gray-400 text-sm">Longest Session</span>
-          </div>
-          <div className="text-lg font-bold text-white">900h</div>
-          <div className="text-xs text-white">That's a lot of caffeine!</div>
+        <div className="text-lg  whitespace-nowrap max-sm:text-[16px] font-bold text-white">
+          70
         </div>
+        <div className="text-xs text-white">Your most productive day</div>
+      </div>
+      <div className="bg-gradient-tertiary rounded-xl p-3 border border-orange-500/30">
+        <div className="flex items-center mb-2">
+          <Coffee
+            className="w-9 h-9 max-xl:w-[19px] 
+          text-white mr-2"
+          />
+          <span className="text-gray-400 whitespace- text-[12px]">
+            Longest Session
+          </span>
+        </div>
+        <div className=" font-bold max-sm:text-[16px] text-white">900h</div>
+        <div className="text-xs text-white">That's a lot of caffeine!</div>
       </div>
 
       <div className="md:block bg-gradient-tertiary rounded-xl p-4 border max-md:hidden border-gray-700">
         <div className="flex justify-between items-center mb-3">
-          <span className="text-gray-300 font-medium">Active Days</span>
-          <span className="text-2xl font-bold text-white">15 days</span>
+          <span className="text-gray-300 font-medium max-xl:text-[14px]">
+            Active Days
+          </span>
+          <span className="text-2xl max-xl:text-[18px] font-bold text-white">
+            15 days
+          </span>
         </div>
         <div className="w-full bg-gray-700 rounded-full h-2">
           <div
