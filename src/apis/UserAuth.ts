@@ -1,5 +1,4 @@
 export const userAuthorized = async () => {
-  console.log("gedklefhsejkfkj");
   window.location.href =
     "https://github.com/login/oauth/authorize" +
     "?client_id=Ov23li85Y3yFVTDbiodF" +
@@ -51,6 +50,7 @@ export const generateSecretToken = async (username: string) => {
     console.log("Error", error);
   }
 };
+
 export const verifyUserAuth = async (token: string) => {
   try {
     const response = await fetch(
@@ -63,6 +63,26 @@ export const verifyUserAuth = async (token: string) => {
         },
       }
     );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+
+export const logOut = async (token: string, username: string) => {
+  try {
+    console.log(token);
+    const response = await fetch("http://localhost:8000/api/v1/users/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `${token}`,
+      },
+      body: JSON.stringify({
+        username: username,
+      }),
+    });
     const data = await response.json();
     return data;
   } catch (error) {

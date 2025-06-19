@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { logOut } from "../apis/UserAuth";
+import Loader from "./Loader";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const UserMenu = ({
@@ -13,11 +15,40 @@ export const UserMenu = ({
   };
 }) => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [loader, setLoader] = useState(false);
+
   const showMenuHandler = () => {
     setShowMenu(!showMenu);
   };
+  const logOutHandler = async () => {
+    setLoader(true);
+    const token = localStorage.getItem("refreshToken");
+
+    if (!token) {
+      console.log("Eror");
+      return;
+    }
+    const response = await logOut(token, data.userName);
+    if (response.statusCode === 200) {
+      localStorage.clear();
+      document.cookie.split(";").forEach((cookie) => {
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.slice(0, eqPos) : cookie;
+        document.cookie =
+          name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+      });
+      setLoader(false);
+
+      window.location.reload();
+    }
+  };
   return (
     <section>
+      {loader && (
+        <div className="  justify-center items-center h-screen w-full flex ">
+          <Loader />
+        </div>
+      )}
       <div className="" style={{ height: "340px" }}>
         <button
           onClick={showMenuHandler}
@@ -153,9 +184,9 @@ export const UserMenu = ({
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="lucide lucide-sparkles"
                       aria-hidden="true"
                     >
@@ -190,9 +221,9 @@ export const UserMenu = ({
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="lucide lucide-badge-check"
                       aria-hidden="true"
                     >
@@ -216,9 +247,9 @@ export const UserMenu = ({
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="lucide lucide-credit-card"
                       aria-hidden="true"
                     >
@@ -242,9 +273,9 @@ export const UserMenu = ({
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="lucide lucide-bell"
                       aria-hidden="true"
                     >
@@ -261,10 +292,13 @@ export const UserMenu = ({
                   className="bg-border -mx-1 my-1 h-px"
                 ></div>
                 <div
+                  onClick={() => {
+                    logOutHandler();
+                  }}
                   role="menuitem"
                   data-slot="dropdown-menu-item"
                   data-variant="default"
-                  className="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&amp;_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 [&amp;_svg:not([class*='size-'])]:size-4 text-red-600!"
+                  className="focus:bg-accent cursor-pointer focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&amp;_svg:not([class*='text-'])]:text-muted-foreground relative flex - items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 [&amp;_svg:not([class*='size-'])]:size-4 text-red-600!"
                   data-orientation="vertical"
                   data-radix-collection-item=""
                 >
@@ -275,9 +309,9 @@ export const UserMenu = ({
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-log-out text-red-600!"
                     aria-hidden="true"
                   >
