@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage";
 import { LeaderBoardPage } from "./pages/LeaderBoardPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ProfilePage } from "./pages/ProfilePage";
+import { AccountAuth } from "./components/AccountAuth";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -20,6 +21,8 @@ function App() {
             element={<HomePage darkMode={darkMode} setDarkMode={setDarkMode} />}
           ></Route>
           <Route path="/leaderBoard" element={<LeaderBoardPage />}></Route>
+          <Route path="/create-acc" element={<AccountAuth />}></Route>
+
           <Route
             path="/Profile"
             element={
@@ -31,5 +34,4 @@ function App() {
     </>
   );
 }
-
 export default App;

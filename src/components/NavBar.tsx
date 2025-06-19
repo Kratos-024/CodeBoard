@@ -48,10 +48,14 @@ export default function Navbar({
     { text: "Documentation", href: siteConfig.url },
   ],
   actions = [
-    { text: "Sign in", href: siteConfig.url, isButton: false },
+    {
+      text: "Sign in",
+      href: "/create-acc",
+      isButton: false,
+    },
     {
       text: "Get Started",
-      href: siteConfig.url,
+      href: "/create-acc",
       isButton: true,
       variant: "default",
     },
