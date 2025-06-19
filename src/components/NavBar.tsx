@@ -1,5 +1,5 @@
-import { Menu } from "lucide-react";
-import type { ReactNode } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState, type ReactNode } from "react";
 
 import { Button, type ButtonProps } from "./ui/button";
 import LaunchUI from "./logos/launch-ui";
@@ -11,7 +11,7 @@ import {
 } from "./ui/navbar";
 import { siteConfig } from "../config/site";
 import Navigation from "./ui/navigation";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { UserMenu } from "./UserMenu";
 
 interface NavbarLink {
   text: string;
@@ -37,16 +37,17 @@ interface NavbarProps {
   customNavigation?: ReactNode;
   className?: string;
 }
+function getCookie(name: string) {
+  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+  if (match) return JSON.parse(decodeURIComponent(match[2]));
+  return null;
+}
 
 export default function Navbar({
   logo = <LaunchUI />,
   name = "Launch UI",
   homeUrl = siteConfig.url,
-  mobileLinks = [
-    { text: "Getting Started", href: siteConfig.url },
-    { text: "Components", href: siteConfig.url },
-    { text: "Documentation", href: siteConfig.url },
-  ],
+
   actions = [
     {
       text: "Sign in",
@@ -64,6 +65,29 @@ export default function Navbar({
   customNavigation,
   className,
 }: NavbarProps) {
+  const [userName, setUserName] = useState("");
+  const [fullName, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [bio, setBio] = useState("");
+  const [login, setLogin] = useState<boolean>(false);
+
+  const userData = getCookie("UserData");
+  const setUserDetails = () => {
+    if (userData) {
+      setLogin(true);
+      setUserName(userData.username);
+      setName(userData.name);
+      setEmail(userData.email);
+      setAvatarUrl(userData.avatar_url);
+      setBio(userData.bio);
+    }
+  };
+
+  useEffect(() => {
+    setUserDetails();
+    console.log(userName, fullName, avatarUrl, bio, email);
+  }, [userData]);
   return (
     <header
       className={cn(
@@ -85,60 +109,46 @@ export default function Navbar({
             {showNavigation && (customNavigation || <Navigation />)}
           </NavbarLeft>
           <NavbarRight>
-            {actions.map((action, index) =>
-              action.isButton ? (
-                <Button
-                  key={index}
-                  variant={action.variant || "default"}
-                  asChild
-                >
-                  <a href={action.href}>
-                    {action.icon}
-                    {action.text}
-                    {action.iconRight}
-                  </a>
-                </Button>
-              ) : (
-                <a
-                  key={index}
-                  href={action.href}
-                  className="hidden text-sm md:block"
-                >
-                  {action.text}
-                </a>
-              )
-            )}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="shrink-0 md:hidden"
-                >
-                  <Menu className="size-5" />
-                  <span className="sr-only">Toggle navigation menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right">
-                <nav className="grid gap-6 text-lg font-medium">
-                  <a
-                    href={homeUrl}
-                    className="flex items-center gap-2 text-xl font-bold"
-                  >
-                    <span>{name}</span>
-                  </a>
-                  {mobileLinks.map((link, index) => (
+            {!login && (
+              <div className="flex items-center gap-4">
+                {actions.map((action, index) =>
+                  action.isButton ? (
+                    <Button
+                      key={index}
+                      variant={action.variant || "default"}
+                      asChild
+                    >
+                      <a href={action.href}>
+                        {action.icon}
+                        {action.text}
+                        {action.iconRight}
+                      </a>
+                    </Button>
+                  ) : (
                     <a
                       key={index}
-                      href={link.href}
-                      className="text-muted-foreground hover:text-foreground"
+                      href={action.href}
+                      className="hidden text-sm md:block"
                     >
-                      {link.text}
+                      {action.text}
                     </a>
-                  ))}
-                </nav>
-              </SheetContent>
-            </Sheet>
+                  )
+                )}
+              </div>
+            )}
+            {login && (
+              <div className="absolute top-0 py-[18px] -md:hidden">
+                <UserMenu
+                  data={{
+                    userName,
+                    avatar_url: avatarUrl,
+                    fullName,
+                    email,
+                    bio,
+                  }}
+                />
+              </div>
+            )}
           </NavbarRight>
         </NavbarComponent>
       </div>

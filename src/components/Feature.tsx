@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useId } from "react";
 
 export default function Feature() {
@@ -133,10 +134,11 @@ export function GridPattern({ width, height, x, y, squares, ...props }: any) {
       />
       {squares && (
         <svg x={x} y={y} className="overflow-visible">
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           {squares.map(([x, y]: any) => (
             <rect
               strokeWidth="0"
-              key={`${x}-${y}`}
+              key={`${x}-${y}-${Math.random() * 100}`}
               width={width + 1}
               height={height + 1}
               x={x * width}

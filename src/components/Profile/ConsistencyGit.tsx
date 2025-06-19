@@ -150,10 +150,6 @@ export const UserCommitChart = () => {
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  useEffect(() => {
-    console.log("blockSize updated:", blockSize);
-  }, [blockSize]);
-
   return (
     <section
       className="2xl:w-full 

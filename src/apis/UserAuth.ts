@@ -1,4 +1,5 @@
 export const userAuthorized = async () => {
+  console.log("gedklefhsejkfkj");
   window.location.href =
     "https://github.com/login/oauth/authorize" +
     "?client_id=Ov23li85Y3yFVTDbiodF" +
@@ -9,7 +10,6 @@ export const userAuthorized = async () => {
 
 export const sendTheAuthTokenToBackend = async (code: string) => {
   try {
-    console.log(code);
     const response = await fetch(
       "http://localhost:8000/api/v1/users/authorize",
       {
@@ -64,7 +64,6 @@ export const verifyUserAuth = async (token: string) => {
       }
     );
     const data = await response.json();
-
     return data;
   } catch (error) {
     console.log("Error", error);

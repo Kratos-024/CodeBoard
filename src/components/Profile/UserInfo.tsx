@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { Award, Calendar, Coffee, Star } from "lucide-react";
 import ActivityInsights, {
@@ -172,7 +173,7 @@ export const UserStats = () => {
               >
                 {grindStats.map((item) => {
                   return (
-                    <div>
+                    <div key={item.color + item.header + item.icon}>
                       <UserPerformanceComp
                         header={item.header}
                         subHeader={item.subHeader}
