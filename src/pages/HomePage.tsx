@@ -10,7 +10,8 @@ export const HomePage = ({
   setDarkMode,
 }: {
   darkMode: boolean;
-  setDarkMode: any;
+
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
     <div className="bg-muted/30">

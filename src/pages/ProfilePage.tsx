@@ -4,13 +4,14 @@ import { UserStats } from "../components/Profile/UserInfo";
 import "../index.css";
 import { useEffect } from "react";
 import { sendTheAuthTokenToBackend } from "../apis/UserAuth";
+import React from "react";
 
 export const ProfilePage = ({
   darkMode,
   setDarkMode,
 }: {
   darkMode: boolean;
-  setDarkMode: any;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);

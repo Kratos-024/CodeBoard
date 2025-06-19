@@ -9,6 +9,7 @@ export const userAuthorized = async () => {
 
 export const sendTheAuthTokenToBackend = async (code: string) => {
   try {
+    console.log(code);
     const response = await fetch(
       "http://localhost:8000/api/v1/users/authorize",
       {
