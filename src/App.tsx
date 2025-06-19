@@ -5,6 +5,8 @@ import { LeaderBoardPage } from "./pages/LeaderBoardPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ProfilePage } from "./pages/ProfilePage";
 import { AccountAuth } from "./components/AccountAuth";
+import { ProtectedRoute } from "./routes/ProtectedRoute";
+import { PublicRoutes } from "./routes/PublicRoutes";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -18,15 +20,28 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<HomePage darkMode={darkMode} setDarkMode={setDarkMode} />}
+            element={
+              <PublicRoutes>
+                <HomePage darkMode={darkMode} setDarkMode={setDarkMode} />
+              </PublicRoutes>
+            }
           ></Route>
           <Route path="/leaderBoard" element={<LeaderBoardPage />}></Route>
-          <Route path="/create-acc" element={<AccountAuth />}></Route>
+          <Route
+            path="/create-acc"
+            element={
+              <PublicRoutes>
+                <AccountAuth />
+              </PublicRoutes>
+            }
+          ></Route>
 
           <Route
             path="/Profile"
             element={
-              <ProfilePage darkMode={darkMode} setDarkMode={setDarkMode} />
+              <ProtectedRoute>
+                <ProfilePage darkMode={darkMode} setDarkMode={setDarkMode} />
+              </ProtectedRoute>
             }
           ></Route>
         </Routes>
