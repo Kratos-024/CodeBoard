@@ -29,6 +29,7 @@ export const HomePage = ({
       const response = await sendTheAuthTokenToBackend(code);
       const access = response?.data.data.accessToken;
       const refresh = response?.data.data.refreshToken;
+      console.log("response.data.dataresponse.data.data", response.data.data);
       document.cookie = `UserData=${encodeURIComponent(
         JSON.stringify(response.data.data)
       )}; path=/`;

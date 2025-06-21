@@ -71,6 +71,7 @@ export default function Navbar({
   const [avatarUrl, setAvatarUrl] = useState("");
   const [bio, setBio] = useState("");
   const [login, setLogin] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string>("");
 
   const userData = getCookie("UserData");
   const setUserDetails = () => {
@@ -81,12 +82,12 @@ export default function Navbar({
       setEmail(userData.email);
       setAvatarUrl(userData.avatar_url);
       setBio(userData.bio);
+      setUserId(userData.userId);
     }
   };
 
   useEffect(() => {
     setUserDetails();
-    console.log(userName, fullName, avatarUrl, bio, email);
   }, [userData]);
   return (
     <header
@@ -145,6 +146,7 @@ export default function Navbar({
                     fullName,
                     email,
                     bio,
+                    userId,
                   }}
                 />
               </div>

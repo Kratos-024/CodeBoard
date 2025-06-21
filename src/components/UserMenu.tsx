@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { logOut } from "../apis/UserAuth";
+import { generateSecretToken, logOut } from "../apis/UserAuth";
 import Loader from "./Loader";
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const UserMenu = ({
   data,
@@ -12,10 +11,13 @@ export const UserMenu = ({
     fullName: string;
     avatar_url: string;
     bio: string;
+    userId: string;
   };
 }) => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [loader, setLoader] = useState(false);
+  const [generatedToken, setGeneratedToken] = useState<string>("");
+  const [copied, setCopied] = useState(false);
 
   const showMenuHandler = () => {
     setShowMenu(!showMenu);
@@ -41,6 +43,21 @@ export const UserMenu = ({
 
       window.location.reload();
     }
+  };
+  const handleCopyHandler = async () => {
+    try {
+      await navigator.clipboard.writeText(generatedToken);
+      setCopied(true);
+      setGeneratedToken("");
+      setTimeout(() => setCopied(false), 5000);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+  const generatedTokenHandler = async () => {
+    const refreshToken = localStorage.getItem("refreshToken") || "";
+    const token = await generateSecretToken(data, refreshToken);
+    setGeneratedToken(token.data);
   };
   return (
     <section>
@@ -232,32 +249,48 @@ export const UserMenu = ({
                     </svg>
                     Account
                   </div>
-                  <div
-                    role="menuitem"
-                    data-slot="dropdown-menu-item"
-                    data-variant="default"
-                    className="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&amp;_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 [&amp;_svg:not([class*='size-'])]:size-4"
-                    data-orientation="vertical"
-                    data-radix-collection-item=""
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="lucide lucide-credit-card"
-                      aria-hidden="true"
+                  {generatedToken.length < 1 && (
+                    <div
+                      role="menuitem"
+                      data-slot="dropdown-menu-item"
+                      data-variant="default"
+                      onClick={generatedTokenHandler}
+                      className=" cursor-pointer
+                     focus:bg-accent
+                      focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&amp;_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-s items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 [&amp;_svg:not([class*='size-'])]:size-4"
+                      data-orientation="vertical"
+                      data-radix-collection-item=""
                     >
-                      <rect width="20" height="14" x="2" y="5" rx="2"></rect>
-                      <line x1="2" x2="22" y1="10" y2="10"></line>
-                    </svg>
-                    Billing
-                  </div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-credit-card"
+                        aria-hidden="true"
+                      >
+                        <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                        <line x1="2" x2="22" y1="10" y2="10"></line>
+                      </svg>
+                      Generate Token
+                    </div>
+                  )}
+                  {generatedToken.length > 1 && (
+                    <div
+                      onClick={handleCopyHandler}
+                      className={`${copied ? "hidden" : "block"} cursor-pointer
+                      focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&amp;_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-s items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 [&amp;_svg:not([class*='size-'])]:size-4`}
+                      data-orientation="vertical"
+                      data-radix-collection-item=""
+                    >
+                      {generatedToken}
+                    </div>
+                  )}
                   <div
                     role="menuitem"
                     data-slot="dropdown-menu-item"

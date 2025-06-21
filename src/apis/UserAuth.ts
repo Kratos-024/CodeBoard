@@ -22,30 +22,40 @@ export const sendTheAuthTokenToBackend = async (code: string) => {
       }
     );
     const data = await response.json();
-
+    console.log("datadata", data);
     return data;
   } catch (error) {
     console.log("Error", error);
   }
 };
 
-export const generateSecretToken = async (username: string) => {
+export const generateSecretToken = async (
+  payload: {
+    userName: string;
+    email: string;
+    fullName: string;
+    avatar_url: string;
+    userId: string;
+  },
+  token: string
+) => {
   try {
     const response = await fetch(
-      "http://localhost:8000/api/v1/extension/generate-token",
+      "http://localhost:8000/api/v1/users/generateSecret",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          authorization: `${token}`,
         },
         body: JSON.stringify({
-          username,
+          payload,
         }),
       }
     );
     const data = await response.json();
 
-    console.log(data);
+    return data;
   } catch (error) {
     console.log("Error", error);
   }
