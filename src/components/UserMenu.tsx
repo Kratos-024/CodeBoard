@@ -56,6 +56,7 @@ export const UserMenu = ({
   };
   const generatedTokenHandler = async () => {
     const refreshToken = localStorage.getItem("refreshToken") || "";
+    console.log("dfklgjgjiodfgrgfg", data);
     const token = await generateSecretToken(data, refreshToken);
     setGeneratedToken(token.data);
   };

@@ -82,7 +82,7 @@ export default function Navbar({
       setEmail(userData.email);
       setAvatarUrl(userData.avatar_url);
       setBio(userData.bio);
-      setUserId(userData.userId);
+      setUserId(userData.uniqueId);
     }
   };
 
