@@ -6,32 +6,45 @@ interface Props {
   children: JSX.Element;
 }
 
+// Extract and parse refresh token from cookie
+const getRefreshTokenFromCookie = (): string => {
+  const match = document.cookie.match(/(?:^|;\s*)UseRrefreshToken=([^;]+)/);
+  if (!match) return "";
+
+  try {
+    const decoded = decodeURIComponent(match[1]);
+    const parsed = JSON.parse(decoded);
+    return parsed.refresh || "";
+  } catch (err) {
+    console.error("Error parsing refresh token from cookie:", err);
+    return "";
+  }
+};
+
 export const ProtectedRoute = ({ children }: Props) => {
   const [isVerified, setIsVerified] = useState<null | boolean>(null);
-  const refreshToken = localStorage.getItem("refreshToken") || "";
 
   useEffect(() => {
     const verifyUserAuthHandler = async () => {
+      const refreshToken = getRefreshTokenFromCookie();
+      console.log("Extracted Refresh Token:", refreshToken);
+
+      if (!refreshToken) {
+        setIsVerified(false);
+        return;
+      }
+
       try {
         const res = await verifyUserAuth(refreshToken);
-
-        if (res?.success) {
-          setIsVerified(true);
-        } else {
-          setIsVerified(false);
-        }
-      } catch (err: unknown) {
-        console.log("Error has been occured on protected routes", err);
+        setIsVerified(!!res?.success);
+      } catch (err) {
+        console.log("Error occurred in protected route:", err);
         setIsVerified(false);
       }
     };
 
-    if (refreshToken) {
-      verifyUserAuthHandler();
-    } else {
-      setIsVerified(false);
-    }
-  }, [refreshToken]);
+    verifyUserAuthHandler();
+  }, []);
 
   if (isVerified === null) return <div>Loading...</div>;
 

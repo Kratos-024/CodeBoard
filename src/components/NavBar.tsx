@@ -12,6 +12,8 @@ import {
 import { siteConfig } from "../config/site";
 import Navigation from "./ui/navigation";
 import { UserMenu } from "./UserMenu";
+import { useSelector } from "react-redux";
+import type { RootState } from "../app/store/store";
 
 interface NavbarLink {
   text: string;
@@ -28,8 +30,6 @@ interface NavbarActionProps {
 }
 
 interface NavbarProps {
-  darkMode: boolean;
-  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   logo?: ReactNode;
   name?: string;
   homeUrl?: string;
@@ -39,15 +39,8 @@ interface NavbarProps {
   customNavigation?: ReactNode;
   className?: string;
 }
-function getCookie(name: string) {
-  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
-  if (match) return JSON.parse(decodeURIComponent(match[2]));
-  return null;
-}
 
 export default function Navbar({
-  darkMode,
-  setDarkMode,
   logo = <LaunchUI />,
   name = "Launch UI",
   homeUrl = siteConfig.url,
@@ -69,30 +62,15 @@ export default function Navbar({
   customNavigation,
   className,
 }: NavbarProps) {
-  const [userName, setUserName] = useState("");
-  const [fullName, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
-  const [bio, setBio] = useState("");
   const [login, setLogin] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>("");
-
-  const userData = getCookie("UserData");
-  const setUserDetails = () => {
-    if (userData) {
-      setLogin(true);
-      setUserName(userData.username);
-      setName(userData.name);
-      setEmail(userData.email);
-      setAvatarUrl(userData.avatar_url);
-      setBio(userData.bio);
-      setUserId(userData.uniqueId);
-    }
-  };
-
+  const userSelector = useSelector((state: RootState) => {
+    return state.user;
+  });
   useEffect(() => {
-    setUserDetails();
-  }, [userData]);
+    if (userSelector.login) {
+      setLogin(true);
+    }
+  }, [userSelector]);
   return (
     <header
       className={cn(
@@ -145,18 +123,7 @@ export default function Navbar({
             )}
             {login && (
               <div className="absolute top-0 py-[18px] ">
-                <UserMenu
-                  darkMode={darkMode}
-                  setDarkMode={setDarkMode}
-                  data={{
-                    userName,
-                    avatar_url: avatarUrl,
-                    fullName,
-                    email,
-                    bio,
-                    userId,
-                  }}
-                />
+                <UserMenu data={userSelector} />
               </div>
             )}
           </NavbarRight>

@@ -6,6 +6,10 @@ export interface UserSlicer {
   userName: string;
   fullName: string;
   userId: string;
+  bio: string;
+  email: string;
+  login: boolean;
+  darkMode?: boolean;
 }
 
 export const UserinitialStore: UserSlicer = {
@@ -13,6 +17,10 @@ export const UserinitialStore: UserSlicer = {
   userName: "",
   fullName: "",
   userId: "",
+  bio: "",
+  email: "",
+  login: false,
+  darkMode: false,
 };
 
 const UserSlicerReducer = createSlice({
@@ -20,16 +28,24 @@ const UserSlicerReducer = createSlice({
   initialState: UserinitialStore,
   reducers: {
     addTheUser: (state, action: PayloadAction<UserSlicer>) => {
+      console.log("came", action.payload);
       state.avatarUrl = action.payload.avatarUrl;
       state.userName = action.payload.userName;
       state.fullName = action.payload.fullName;
       state.userId = action.payload.userId;
+      state.bio = action.payload.bio;
+      state.email = action.payload.email;
+      state.login = action.payload.login;
     },
-    getTheUser: () => {
-      return UserinitialStore;
+    getTheUser: (state) => {
+      return state;
+    },
+    darkModeHandler: (state, action: PayloadAction<boolean>) => {
+      state.darkMode = action.payload;
     },
   },
 });
 
-export const { addTheUser, getTheUser } = UserSlicerReducer.actions;
+export const { addTheUser, getTheUser, darkModeHandler } =
+  UserSlicerReducer.actions;
 export default UserSlicerReducer.reducer;

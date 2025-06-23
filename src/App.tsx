@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import { HomePage } from "./pages/HomePage";
 import { LeaderBoardPage } from "./pages/LeaderBoardPage";
@@ -7,63 +7,72 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { AccountAuth } from "./components/AccountAuth";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { PublicRoutes } from "./routes/PublicRoutes";
-import { Provider } from "react-redux";
-import { store } from "./app/store/store";
-function RouteHandling({
-  darkMode,
-  setDarkMode,
-}: {
-  darkMode: boolean;
-  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+import { Provider, useSelector } from "react-redux";
+import { persistor, store, type RootState } from "./app/store/store";
+import { PersistGate } from "redux-persist/integration/react";
+import Loader from "./components/Loader";
+
+function RouteHandling() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PublicRoutes>
+              <HomePage />
+            </PublicRoutes>
+          }
+        />
+        <Route path="/leaderBoard" element={<LeaderBoardPage />} />
+        <Route
+          path="/create-acc"
+          element={
+            <PublicRoutes>
+              <AccountAuth />
+            </PublicRoutes>
+          }
+        />
+        <Route
+          path="/Profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+function DarkModeHandler() {
+  const darkMode = useSelector((state: RootState) => state.user.darkMode);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+
+  return null;
+}
+
+function AppContent() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PublicRoutes>
-                <HomePage darkMode={darkMode} setDarkMode={setDarkMode} />
-              </PublicRoutes>
-            }
-          ></Route>
-          <Route path="/leaderBoard" element={<LeaderBoardPage />}></Route>
-          <Route
-            path="/create-acc"
-            element={
-              <PublicRoutes>
-                <AccountAuth />
-              </PublicRoutes>
-            }
-          ></Route>
-
-          <Route
-            path="/Profile"
-            element={
-              <ProtectedRoute>
-                <ProfilePage darkMode={darkMode} setDarkMode={setDarkMode} />
-              </ProtectedRoute>
-            }
-          ></Route>
-        </Routes>
-      </BrowserRouter>
+      <DarkModeHandler />
+      <RouteHandling />
     </>
   );
 }
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-  }, [darkMode]);
   return (
-    <>
-      <Provider store={store}>
-        <RouteHandling setDarkMode={setDarkMode} darkMode={darkMode} />
-      </Provider>
-    </>
+    <Provider store={store}>
+      <PersistGate loading={<Loader />} persistor={persistor}>
+        <AppContent />
+      </PersistGate>
+    </Provider>
   );
 }
+
 export default App;

@@ -22,7 +22,6 @@ export const sendTheAuthTokenToBackend = async (code: string) => {
       }
     );
     const data = await response.json();
-    console.log("datadata", data);
     return data.data;
   } catch (error) {
     console.log("Error", error);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useId } from "react";
 export const FeatureCard = ({
   header,

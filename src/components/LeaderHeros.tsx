@@ -86,47 +86,47 @@ export const LeaderHeros = () => {
   );
 };
 
-const TopLeaders = () => {
-  return (
-    <div className=" relative">
-      <div className="text-white flex items-center flex-col gap-6">
-        <div className="flex flex-col items-center">
-          <img
-            className=" w-[96px] rounded-xl"
-            src="https://i.pinimg.com/736x/df/c7/13/dfc7136726336c86fdd640243cea2a11.jpg"
-          />
-          <p>Brian Ngo</p>
-        </div>
-        {/* <div
-          className="bg-[url('./poddium2.png')]
-         bg-cover bg-center h-[612px]  w-full p-2 bg-red-200"
-        > */}
-        <div className="relative z-10">
-          <div className="flex flex-col items-center">
-            <img
-              className=" w-[48px] rounded-xl"
-              src="https://img.freepik.com/free-vector/trophy_78370-345.jpg"
-            />
-            <p>Earn 2,000 points</p>
-          </div>
-          <div className="flex flex-col items-end">
-            <div className="flex gap-2">
-              <img
-                className=" w-[28px] rounded-xl"
-                src="./svgs/diamond-svgrepo-com.svg"
-              />
-              <span>50,000</span>
-            </div>
-          </div>
-        </div>
-        <div className="absolute -left-[124px] -top-[64px] h-[788px] w-[788px]">
-          <img className="" src="./poddium.png" />
-        </div>
-        {/* </div> */}
-      </div>
-    </div>
-  );
-};
+// const TopLeaders = () => {
+//   return (
+//     <div className=" relative">
+//       <div className="text-white flex items-center flex-col gap-6">
+//         <div className="flex flex-col items-center">
+//           <img
+//             className=" w-[96px] rounded-xl"
+//             src="https://i.pinimg.com/736x/df/c7/13/dfc7136726336c86fdd640243cea2a11.jpg"
+//           />
+//           <p>Brian Ngo</p>
+//         </div>
+//         {/* <div
+//           className="bg-[url('./poddium2.png')]
+//          bg-cover bg-center h-[612px]  w-full p-2 bg-red-200"
+//         > */}
+//         <div className="relative z-10">
+//           <div className="flex flex-col items-center">
+//             <img
+//               className=" w-[48px] rounded-xl"
+//               src="https://img.freepik.com/free-vector/trophy_78370-345.jpg"
+//             />
+//             <p>Earn 2,000 points</p>
+//           </div>
+//           <div className="flex flex-col items-end">
+//             <div className="flex gap-2">
+//               <img
+//                 className=" w-[28px] rounded-xl"
+//                 src="./svgs/diamond-svgrepo-com.svg"
+//               />
+//               <span>50,000</span>
+//             </div>
+//           </div>
+//         </div>
+//         <div className="absolute -left-[124px] -top-[64px] h-[788px] w-[788px]">
+//           <img className="" src="./poddium.png" />
+//         </div>
+//         {/* </div> */}
+//       </div>
+//     </div>
+//   );
+// };
 
 const fakeUsers = Array.from({ length: 20 }, (_, i) => ({
   rank: i + 1,

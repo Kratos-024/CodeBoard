@@ -3,23 +3,17 @@ import { generateSecretToken, logOut } from "../apis/UserAuth";
 import Loader from "./Loader";
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
+import { darkModeHandler, type UserSlicer } from "../function/User/UserSlicer";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../app/store/store";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const UserMenu = ({
-  darkMode,
-  setDarkMode,
-  data,
-}: {
-  darkMode: boolean;
-  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
-  data: {
-    userName: string;
-    email: string;
-    fullName: string;
-    avatar_url: string;
-    bio: string;
-    userId: string;
-  };
-}) => {
+export const UserMenu = ({ data }: { data: UserSlicer }) => {
+  const darkModeDispatcher = useDispatch();
+  const darkModeSelector =
+    useSelector((state: RootState) => {
+      return state.user.darkMode;
+    }) || false;
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [loader, setLoader] = useState(false);
   const [generatedToken, setGeneratedToken] = useState<string>("");
@@ -62,8 +56,16 @@ export const UserMenu = ({
   };
   const generatedTokenHandler = async () => {
     const refreshToken = localStorage.getItem("refreshToken") || "";
-    console.log("dfklgjgjiodfgrgfg", data);
-    const token = await generateSecretToken(data, refreshToken);
+    const token = await generateSecretToken(
+      {
+        userName: data.userName,
+        email: data.email,
+        fullName: data.fullName,
+        avatar_url: data.avatarUrl,
+        userId: data.userId,
+      },
+      refreshToken
+    );
     setGeneratedToken(token.data);
   };
   return (
@@ -92,7 +94,7 @@ export const UserMenu = ({
               data-slot="avatar-image"
               className="aspect-square size-full"
               alt={data.fullName}
-              src={data.avatar_url}
+              src={data.avatarUrl}
             ></img>
           </span>
           <div className="truncate">{data.fullName}</div>
@@ -173,7 +175,7 @@ export const UserMenu = ({
                         data-slot="avatar-image"
                         className="aspect-square size-full"
                         alt="Toby Belhome"
-                        src={data.avatar_url}
+                        src={data.avatarUrl}
                       ></img>
                     </span>
                     <div className="grid flex-1 text-left text-sm leading-tight">
@@ -258,8 +260,7 @@ export const UserMenu = ({
                   </div>
                   <div
                     onClick={() => {
-                      console.log("gdfkojdjkg");
-                      setDarkMode(!darkMode);
+                      darkModeDispatcher(darkModeHandler(!darkModeSelector));
                     }}
                     data-slot="dropdown-menu-item"
                     data-variant="default"
@@ -267,7 +268,7 @@ export const UserMenu = ({
                     data-orientation="vertical"
                     data-radix-collection-item=""
                   >
-                    {darkMode === true ? (
+                    {darkModeSelector === true ? (
                       <div className="flex gap-1 items-center">
                         {" "}
                         <MdDarkMode className=" fill- font-semibold w-[28px] h-[28px]" />
