@@ -4,32 +4,29 @@ import { IoIosCalendar } from "react-icons/io";
 import { LanguageChart } from "./UserOverview";
 import { Calendar, Clock, Trophy, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
-
+import { useSelector } from "react-redux";
+import type { RootState } from "../../app/store/store";
 const theme = {
   light: ["#ebedf0", "#c6e48b", "#7bc96f", "#239a3b", "#196127"],
   dark: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
 };
 
-const generateData = () => {
-  const data = [];
-  const startDate = new Date("2025-03-26");
-  const endDate = new Date("2025-06-15");
-
-  for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
-    const dateStr = d.toISOString().split("T")[0];
-    const count = Math.floor(Math.random() * 5);
-    data.push({
-      date: dateStr,
-      count: count,
-      level: count,
-    });
-  }
-  return data;
-};
-
-const data = generateData();
-
 export function UserGitCalendar({ blockSize }: { blockSize: number }) {
+  const gitData = useSelector((state: RootState) => {
+    return state.userStat.gitStreak;
+  });
+  let data = Array(gitData);
+  console.log(data);
+
+  if (data.length < 4) {
+    data = [
+      {
+        date: "2025-02-03",
+        count: 10,
+        level: 3,
+      },
+    ];
+  }
   return (
     <div>
       <ActivityCalendar

@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { generateSecretToken, logOut } from "../apis/UserAuth";
+import {
+  generateSecretToken,
+  getRefreshTokenFromCookie,
+  logOut,
+} from "../apis/UserAuth";
 import Loader from "./Loader";
 import { MdDarkMode } from "react-icons/md";
 import { CiLight } from "react-icons/ci";
@@ -55,7 +59,7 @@ export const UserMenu = ({ data }: { data: UserSlicer }) => {
     }
   };
   const generatedTokenHandler = async () => {
-    const refreshToken = localStorage.getItem("refreshToken") || "";
+    const refreshToken = getRefreshTokenFromCookie();
     const token = await generateSecretToken(
       {
         userName: data.userName,

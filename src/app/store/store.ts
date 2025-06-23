@@ -10,27 +10,22 @@ import {
   REGISTER,
 } from "redux-persist";
 
-// Import your slice reducer
 import UserReducer from "../../function/User/UserSlicer";
+import UserDailyStatReducer from "../../function/userDailyStats/DailyStats";
 
-// Persist config
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  // Optional: whitelist if you add more reducers
-  // whitelist: ["user"],
 };
 
-// Combine reducers with correct key
 const rootReducer = combineReducers({
-  user: UserReducer, // IMPORTANT: match this key with how you access state
+  user: UserReducer,
+  userStat: UserDailyStatReducer,
 });
 
-// Wrap with persistReducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Configure store
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>

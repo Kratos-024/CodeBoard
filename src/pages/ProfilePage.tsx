@@ -2,27 +2,40 @@ import { useEffect } from "react";
 import Navbar from "../components/NavBar";
 import { UserStats } from "../components/Profile/UserInfo";
 import "../index.css";
-import { getUserStats } from "../apis/UserAuth";
-const getRefreshTokenFromCookie = (): string => {
-  const match = document.cookie.match(/(?:^|;\s*)UseRrefreshToken=([^;]+)/);
-  if (!match) return "";
-
-  try {
-    const decoded = decodeURIComponent(match[1]); // decode URL-encoded JSON
-    const parsed = JSON.parse(decoded); // parse JSON string
-    return parsed.refresh || "";
-  } catch (err) {
-    console.error("Error parsing refresh token from cookie:", err);
-    return "";
-  }
-};
+import { getRefreshTokenFromCookie, getUserStats } from "../apis/UserAuth";
+import { useDispatch } from "react-redux";
+import { addTheStats } from "../function/userDailyStats/DailyStats";
 
 export const ProfilePage = () => {
+  const userDailyDispatch = useDispatch();
   useEffect(() => {
     const refreshToken = getRefreshTokenFromCookie();
     const getTheUserStat = async (refreshToken: string) => {
       const response = await getUserStats(refreshToken);
-      console.log(response);
+      const payload = {
+        uniqueId: response.data.gitstreak.uniqueId,
+        gitStreak: {
+          date: response.data.gitstreak.gitDate,
+          count: response.data.gitstreak.count,
+          level: response.data.gitstreak.level,
+        },
+        languages: {
+          languages: response.data.languages.language,
+        },
+        streak: {
+          date: response.data.streak.date,
+          email: response.data.streak.email,
+          streak: response.data.streak.streak,
+        },
+        userdailystats: [
+          {
+            earlyMorning: response.data.userdailystats[0].earlyMorning,
+            lateNight: response.data.userdailystats[0].lateNight,
+          },
+        ],
+      };
+
+      userDailyDispatch(addTheStats(payload));
     };
     getTheUserStat(refreshToken);
   });

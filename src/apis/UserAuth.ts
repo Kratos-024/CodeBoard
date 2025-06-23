@@ -117,3 +117,17 @@ export const getUserStats = async (token: string) => {
     console.log("Error", error);
   }
 };
+
+export const getRefreshTokenFromCookie = (): string => {
+  const match = document.cookie.match(/(?:^|;\s*)UseRrefreshToken=([^;]+)/);
+  if (!match) return "";
+
+  try {
+    const decoded = decodeURIComponent(match[1]);
+    const parsed = JSON.parse(decoded);
+    return parsed.refresh || "";
+  } catch (err) {
+    console.error("Error parsing refresh token from cookie:", err);
+    return "";
+  }
+};
