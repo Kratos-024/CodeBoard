@@ -28,6 +28,8 @@ interface NavbarActionProps {
 }
 
 interface NavbarProps {
+  darkMode: boolean;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   logo?: ReactNode;
   name?: string;
   homeUrl?: string;
@@ -44,6 +46,8 @@ function getCookie(name: string) {
 }
 
 export default function Navbar({
+  darkMode,
+  setDarkMode,
   logo = <LaunchUI />,
   name = "Launch UI",
   homeUrl = siteConfig.url,
@@ -109,7 +113,9 @@ export default function Navbar({
             </a>
             {showNavigation && (customNavigation || <Navigation />)}
           </NavbarLeft>
+
           <NavbarRight>
+            {" "}
             {!login && (
               <div className="flex items-center gap-4">
                 {actions.map((action, index) =>
@@ -138,8 +144,10 @@ export default function Navbar({
               </div>
             )}
             {login && (
-              <div className="absolute top-0 py-[18px] -md:hidden">
+              <div className="absolute top-0 py-[18px] ">
                 <UserMenu
+                  darkMode={darkMode}
+                  setDarkMode={setDarkMode}
                   data={{
                     userName,
                     avatar_url: avatarUrl,

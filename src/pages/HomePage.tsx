@@ -19,6 +19,7 @@ export const HomePage = ({
 }) => {
   const location = useLocation();
   const [loader, setLoader] = useState(false);
+  // const userDispatch = useDispatch();
   useEffect(() => {
     const code = new URLSearchParams(location.search).get("code");
 
@@ -29,12 +30,13 @@ export const HomePage = ({
       const response = await sendTheAuthTokenToBackend(code);
       const access = response?.data.data.accessToken;
       const refresh = response?.data.data.refreshToken;
-      console.log("response.data.dataresponse.data.data", response.data.data);
-      document.cookie = `UserData=${encodeURIComponent(
-        JSON.stringify(response.data.data)
+      document.cookie = `UseRrefreshToken=${encodeURIComponent(
+        JSON.stringify({ refresh })
       )}; path=/`;
+      console.log("Response.data.data", response.data.data);
+      // userDispatch(addTheUser(response.data.data));
+
       localStorage.setItem("accessToken", access);
-      localStorage.setItem("refreshToken", refresh);
       window.location.reload();
       setLoader(false);
     };
@@ -48,7 +50,7 @@ export const HomePage = ({
           <Loader />
         </div>
       )}
-      <Navbar />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <HeroSection2 />
       <Feature />
       <GuideSection />

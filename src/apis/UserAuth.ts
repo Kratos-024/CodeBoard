@@ -23,7 +23,7 @@ export const sendTheAuthTokenToBackend = async (code: string) => {
     );
     const data = await response.json();
     console.log("datadata", data);
-    return data;
+    return data.data;
   } catch (error) {
     console.log("Error", error);
   }
@@ -80,7 +80,7 @@ export const verifyUserAuth = async (token: string) => {
   }
 };
 
-export const logOut = async (token: string, username: string) => {
+export const logOut = async (token: string, userId: string) => {
   try {
     console.log(token);
     const response = await fetch("http://localhost:8000/api/v1/users/logout", {
@@ -90,9 +90,28 @@ export const logOut = async (token: string, username: string) => {
         authorization: `${token}`,
       },
       body: JSON.stringify({
-        username: username,
+        username: userId,
       }),
     });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+
+export const getUserStats = async (token: string) => {
+  try {
+    const response = await fetch(
+      "http://localhost:8000/api/v1/users/get-user-stats",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `${token}`,
+        },
+      }
+    );
     const data = await response.json();
     return data;
   } catch (error) {

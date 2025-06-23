@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { generateSecretToken, logOut } from "../apis/UserAuth";
 import Loader from "./Loader";
+import { MdDarkMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const UserMenu = ({
+  darkMode,
+  setDarkMode,
   data,
 }: {
+  darkMode: boolean;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
   data: {
     userName: string;
     email: string;
@@ -250,6 +256,32 @@ export const UserMenu = ({
                     </svg>
                     Account
                   </div>
+                  <div
+                    onClick={() => {
+                      console.log("gdfkojdjkg");
+                      setDarkMode(!darkMode);
+                    }}
+                    data-slot="dropdown-menu-item"
+                    data-variant="default"
+                    className="focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&amp;_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&amp;_svg]:pointer-events-none [&amp;_svg]:shrink-0 [&amp;_svg:not([class*='size-'])]:size-4"
+                    data-orientation="vertical"
+                    data-radix-collection-item=""
+                  >
+                    {darkMode === true ? (
+                      <div className="flex gap-1 items-center">
+                        {" "}
+                        <MdDarkMode className=" fill- font-semibold w-[28px] h-[28px]" />
+                        <span>Dark Mode</span>
+                      </div>
+                    ) : (
+                      <div className="flex gap-1 items-center">
+                        {" "}
+                        <CiLight className=" fill-black font-semibold w-[28px] h-[28px]" />
+                        <span>Light Mode</span>
+                      </div>
+                    )}
+                  </div>
+
                   {generatedToken.length < 1 && (
                     <div
                       role="menuitem"

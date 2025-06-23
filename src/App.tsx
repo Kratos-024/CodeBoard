@@ -7,13 +7,15 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { AccountAuth } from "./components/AccountAuth";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { PublicRoutes } from "./routes/PublicRoutes";
-
-function App() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-  }, [darkMode]);
+import { Provider } from "react-redux";
+import { store } from "./app/store/store";
+function RouteHandling({
+  darkMode,
+  setDarkMode,
+}: {
+  darkMode: boolean;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
     <>
       <BrowserRouter>
@@ -46,6 +48,21 @@ function App() {
           ></Route>
         </Routes>
       </BrowserRouter>
+    </>
+  );
+}
+
+function App() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+  return (
+    <>
+      <Provider store={store}>
+        <RouteHandling setDarkMode={setDarkMode} darkMode={darkMode} />
+      </Provider>
     </>
   );
 }
